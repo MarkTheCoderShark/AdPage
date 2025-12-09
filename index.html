@@ -10,6 +10,22 @@
       gtag('config', 'AW-16560544939');
     </script>
 
+    <!-- Event snippet for Rental Analysis Lead conversion page -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-16560544939/2zBiCKy6ts4bEKu519g9',
+            'event_callback': callback
+        });
+        return false;
+      }
+    </script>
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="https://propertymanagementsacramentoca.com/wp-content/uploads/2025/03/site-logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

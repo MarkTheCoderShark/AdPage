@@ -120,6 +120,11 @@ export default function App() {
         throw new Error(data.error || 'Failed to submit form')
       }
 
+      // Track Google Ads conversion
+      if (typeof window.gtag_report_conversion === 'function') {
+        window.gtag_report_conversion()
+      }
+
       setSubmitted(true)
     } catch (err) {
       console.error('Submission error:', err)
