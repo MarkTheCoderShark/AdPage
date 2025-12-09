@@ -54,11 +54,11 @@ const ReviewCarousel = ({ reviews, StarIcon }) => {
   }
 
   return (
-    <div className="relative">
-      {/* Navigation Buttons */}
+    <div className="flex items-center gap-4">
+      {/* Left Arrow */}
       <button
         onClick={goPrev}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
+        className="shrink-0 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
         aria-label="Previous reviews"
       >
         <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,43 +66,30 @@ const ReviewCarousel = ({ reviews, StarIcon }) => {
         </svg>
       </button>
 
-      <button
-        onClick={goNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
-        aria-label="Next reviews"
-      >
-        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
       {/* Carousel Container */}
-      <div className="overflow-hidden">
+      <div className="flex-1 overflow-hidden">
         <div
-          className="flex transition-transform duration-500 ease-in-out gap-6"
-          style={{ transform: `translateX(-${currentIndex * (100 / visibleCount + 2)}%)` }}
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)` }}
         >
           {reviews.map((testimonial, i) => (
-            <div key={i} className="w-full md:w-1/3 flex-shrink-0">
+            <div key={i} className="w-1/3 flex-shrink-0 px-3">
               <ReviewCard testimonial={testimonial} StarIcon={StarIcon} />
             </div>
           ))}
         </div>
       </div>
 
-      {/* Dots Indicator */}
-      <div className="flex justify-center gap-2 mt-8">
-        {Array.from({ length: Math.ceil(reviews.length / visibleCount) }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrentIndex(i * visibleCount > maxIndex ? maxIndex : i * visibleCount)}
-            className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
-              Math.floor(currentIndex / visibleCount) === i ? 'bg-emerald-700' : 'bg-stone-300'
-            }`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
+      {/* Right Arrow */}
+      <button
+        onClick={goNext}
+        className="shrink-0 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
+        aria-label="Next reviews"
+      >
+        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
     </div>
   )
 }
