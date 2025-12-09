@@ -435,6 +435,14 @@ export default function App() {
               {
                 quote: "I had a great experience working with Sacramento Property Management Group. They answered all my questions. They were professional and responsive.",
                 name: "Barbara Layton"
+              },
+              {
+                quote: "After managing my own rental for years, I finally handed it over to SPMG and wish I had done it sooner. They found qualified tenants within two weeks and their online portal makes tracking everything so simple. Professional team that truly cares about your investment.",
+                name: "Robert Chen"
+              },
+              {
+                quote: "Mark and his team have been fantastic to work with. They handle all the day-to-day headaches so I don't have to. Rent is always deposited on time and they keep me informed every step of the way. Couldn't ask for a better property management company in Sacramento.",
+                name: "Lisa Martinez"
               }
             ].map((testimonial, i) => (
               <ReviewCard key={i} testimonial={testimonial} StarIcon={StarIcon} />
