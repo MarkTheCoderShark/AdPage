@@ -310,7 +310,7 @@ export default function App() {
             They found great tenants quickly and have handled everything with care.
           </p>
           <p className="text-slate-500 font-medium">
-            — Karina K., Property Owner
+            — Karina K., Property Owner · Sacramento
           </p>
         </div>
       </section>
