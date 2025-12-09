@@ -297,22 +297,21 @@ export default function App() {
         </div>
       </section>
 
-      {/* Hero Image Section */}
-      <section className="px-6 py-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-stone-300/50">
-            <img
-              src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Beautiful residential home in Sacramento"
-              className="w-full h-64 md:h-96 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-            <div className="absolute bottom-0 left-0 right-0 p-8">
-              <p className="text-white text-xl md:text-2xl font-serif font-medium max-w-2xl">
-                "Professional management for residential properties across the Greater Sacramento area."
-              </p>
-            </div>
+      {/* Featured Testimonial */}
+      <section className="px-6 py-16 md:py-20">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="flex justify-center gap-1 mb-6">
+            {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
           </div>
+          <blockquote className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium text-slate-900 mb-6 leading-relaxed">
+            "It's such a relief knowing my property is in good hands."
+          </blockquote>
+          <p className="text-lg md:text-xl text-slate-600 mb-6">
+            They found great tenants quickly and have handled everything with care.
+          </p>
+          <p className="text-slate-500 font-medium">
+            — Karina K., Property Owner
+          </p>
         </div>
       </section>
 
