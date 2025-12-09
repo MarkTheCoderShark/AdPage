@@ -5,7 +5,7 @@ const ReviewCard = ({ testimonial, StarIcon }) => {
   const isLong = testimonial.quote.length > 180
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100 flex flex-col h-full">
+    <div className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100 flex flex-col h-full min-h-[280px]">
       <div className="flex items-center justify-between mb-4">
         <div className="flex gap-0.5">
           {[...Array(5)].map((_, j) => <StarIcon key={j} />)}
@@ -35,6 +35,73 @@ const ReviewCard = ({ testimonial, StarIcon }) => {
           </span>
         </div>
         <p className="font-semibold text-slate-900 text-sm">{testimonial.name}</p>
+      </div>
+    </div>
+  )
+}
+
+const ReviewCarousel = ({ reviews, StarIcon }) => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const visibleCount = 3
+  const maxIndex = reviews.length - visibleCount
+
+  const goNext = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
+  }
+
+  const goPrev = () => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
+  }
+
+  return (
+    <div className="relative">
+      {/* Navigation Buttons */}
+      <button
+        onClick={goPrev}
+        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
+        aria-label="Previous reviews"
+      >
+        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button
+        onClick={goNext}
+        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
+        aria-label="Next reviews"
+      >
+        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      {/* Carousel Container */}
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-500 ease-in-out gap-6"
+          style={{ transform: `translateX(-${currentIndex * (100 / visibleCount + 2)}%)` }}
+        >
+          {reviews.map((testimonial, i) => (
+            <div key={i} className="w-full md:w-1/3 flex-shrink-0">
+              <ReviewCard testimonial={testimonial} StarIcon={StarIcon} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Dots Indicator */}
+      <div className="flex justify-center gap-2 mt-8">
+        {Array.from({ length: Math.ceil(reviews.length / visibleCount) }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentIndex(i * visibleCount > maxIndex ? maxIndex : i * visibleCount)}
+            className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
+              Math.floor(currentIndex / visibleCount) === i ? 'bg-emerald-700' : 'bg-stone-300'
+            }`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
       </div>
     </div>
   )
@@ -381,8 +448,9 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
+          <ReviewCarousel
+            StarIcon={StarIcon}
+            reviews={[
               {
                 quote: "Highly recommend this property management for people who plan to rent out their home for the first time! My meetings with Mark and conversations with George were always organized and respectful making the home prep process seamless. On top of that, I felt comfortable, trusting them as they were honest, transparent and dependable. Kudos for a stellar job!",
                 name: "Gloria"
@@ -443,10 +511,8 @@ export default function App() {
                 quote: "Mark and his team have been fantastic to work with. They handle all the day-to-day headaches so I don't have to. Rent is always deposited on time and they keep me informed every step of the way. Couldn't ask for a better property management company in Sacramento.",
                 name: "Lisa Martinez"
               }
-            ].map((testimonial, i) => (
-              <ReviewCard key={i} testimonial={testimonial} StarIcon={StarIcon} />
-            ))}
-          </div>
+            ]}
+          />
         </div>
       </section>
 
