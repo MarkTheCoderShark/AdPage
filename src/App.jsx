@@ -111,27 +111,33 @@ export default function App() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-slate-900 leading-[1.1] mb-6">
-                Expert Property Management,{' '}
-                <span className="text-emerald-700">Peace of Mind</span>
+                Your Property Deserves Tenants Who Pay{' '}
+                <span className="text-emerald-700">— And Stay.</span>
               </h1>
 
-              <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                Discover what your rental property should be earning. Get a complimentary rental analysis from Sacramento's most trusted property management team.
+              <p className="text-xl text-slate-600 mb-4 leading-relaxed">
+                Finding reliable tenants is hard. Keeping them is harder. We handle the screening, the leasing, the rent collection, and the late-night emergencies — so your investment actually works for you.
+              </p>
+
+              <p className="text-lg text-emerald-700 font-medium mb-8">
+                Get a free rental analysis and see what your property should be earning.
               </p>
 
               {/* Trust Indicators */}
-              <div className="flex flex-wrap items-center gap-6 mb-8 pb-8 border-b border-stone-200">
+              <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-8 pb-8 border-b border-stone-200 text-sm md:text-base">
                 <div className="flex items-center gap-2">
                   <div className="flex">
                     {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
                   </div>
                   <span className="text-slate-700 font-medium">65+ Reviews</span>
                 </div>
+                <span className="text-slate-300 hidden sm:inline">·</span>
                 <div className="flex items-center gap-2 text-slate-600">
-                  <svg className="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                  <span className="font-medium">94% Occupancy Rate</span>
+                  <span className="font-medium">94% Occupancy</span>
+                </div>
+                <span className="text-slate-300 hidden sm:inline">·</span>
+                <div className="flex items-center gap-2 text-slate-600">
+                  <span className="font-medium">Licensed DRE #02243502</span>
                 </div>
               </div>
 
@@ -139,8 +145,8 @@ export default function App() {
               <div className="space-y-3">
                 {[
                   'No management fees while your property is vacant',
-                  'Rigorous tenant screening on every applicant',
-                  'Real-time financial reporting & transparency'
+                  'Rigorous screening: income, credit, background, and rental history verified',
+                  '24/7 owner portal with real-time financial reporting'
                 ].map((benefit, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckIcon />
