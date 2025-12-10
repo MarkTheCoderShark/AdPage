@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const ReviewCard = ({ testimonial, StarIcon }) => {
   const [expanded, setExpanded] = useState(false)
@@ -42,7 +42,24 @@ const ReviewCard = ({ testimonial, StarIcon }) => {
 
 const ReviewCarousel = ({ reviews, StarIcon }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const visibleCount = 3
+
+  // Show 1 on mobile, 3 on desktop
+  const getVisibleCount = () => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768 ? 1 : 3
+    }
+    return 3
+  }
+
+  const [visibleCount, setVisibleCount] = useState(getVisibleCount)
+
+  // Update visible count on resize
+  useEffect(() => {
+    const handleResize = () => setVisibleCount(getVisibleCount())
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   const maxIndex = reviews.length - visibleCount
 
   const goNext = () => {
@@ -54,14 +71,14 @@ const ReviewCarousel = ({ reviews, StarIcon }) => {
   }
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-2 md:gap-4">
       {/* Left Arrow */}
       <button
         onClick={goPrev}
-        className="shrink-0 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
+        className="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
         aria-label="Previous reviews"
       >
-        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 md:w-5 md:h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
@@ -73,7 +90,11 @@ const ReviewCarousel = ({ reviews, StarIcon }) => {
           style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)` }}
         >
           {reviews.map((testimonial, i) => (
-            <div key={i} className="w-1/3 flex-shrink-0 px-3">
+            <div
+              key={i}
+              className="flex-shrink-0 px-2 md:px-3"
+              style={{ width: `${100 / visibleCount}%` }}
+            >
               <ReviewCard testimonial={testimonial} StarIcon={StarIcon} />
             </div>
           ))}
@@ -83,10 +104,10 @@ const ReviewCarousel = ({ reviews, StarIcon }) => {
       {/* Right Arrow */}
       <button
         onClick={goNext}
-        className="shrink-0 w-12 h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
+        className="shrink-0 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors cursor-pointer"
         aria-label="Next reviews"
       >
-        <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-4 h-4 md:w-5 md:h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
@@ -236,7 +257,7 @@ export default function App() {
                 </div>
                 <span className="text-slate-300 hidden sm:inline">·</span>
                 <div className="flex items-center gap-2 text-slate-600">
-                  <span className="font-medium">Licensed DRE #02243502</span>
+                  <span className="font-medium">Avg. 2-3 Week Placement</span>
                 </div>
               </div>
 
@@ -257,6 +278,18 @@ export default function App() {
 
             {/* Right Column - Form */}
             <div className="order-1 lg:order-2">
+              {/* Mobile Trust Bar - Only visible on mobile, above form */}
+              <div className="lg:hidden mb-4 flex items-center justify-center gap-4 text-sm">
+                <div className="flex items-center gap-1">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+                  </div>
+                  <span className="text-slate-700 font-medium">65+ Reviews</span>
+                </div>
+                <span className="text-slate-300">·</span>
+                <span className="text-slate-600 font-medium">94% Occupancy</span>
+              </div>
+
               <div className="bg-white rounded-2xl p-8 shadow-xl shadow-stone-200/50 border border-stone-100">
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-serif font-semibold text-slate-900 mb-2">
