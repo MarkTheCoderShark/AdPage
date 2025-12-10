@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const ReviewCard = ({ testimonial, StarIcon }) => {
   const [expanded, setExpanded] = useState(false)
@@ -120,6 +120,43 @@ export default function App() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const addressInputRef = useRef(null)
+  const autocompleteRef = useRef(null)
+
+  // Initialize Google Places Autocomplete
+  useEffect(() => {
+    const initAutocomplete = () => {
+      if (window.google && window.google.maps && window.google.maps.places && addressInputRef.current && !autocompleteRef.current) {
+        autocompleteRef.current = new window.google.maps.places.Autocomplete(addressInputRef.current, {
+          componentRestrictions: { country: 'us' },
+          fields: ['formatted_address'],
+          types: ['address']
+        })
+
+        autocompleteRef.current.addListener('place_changed', () => {
+          const place = autocompleteRef.current.getPlace()
+          if (place.formatted_address) {
+            setFormData(prev => ({ ...prev, address: place.formatted_address }))
+          }
+        })
+      }
+    }
+
+    // Check if Google Maps is already loaded
+    if (window.google && window.google.maps && window.google.maps.places) {
+      initAutocomplete()
+    } else {
+      // Wait for Google Maps to load
+      const checkGoogle = setInterval(() => {
+        if (window.google && window.google.maps && window.google.maps.places) {
+          clearInterval(checkGoogle)
+          initAutocomplete()
+        }
+      }, 100)
+
+      return () => clearInterval(checkGoogle)
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -304,6 +341,20 @@ export default function App() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Property Address</label>
+                    <input
+                      ref={addressInputRef}
+                      type="text"
+                      name="address"
+                      required
+                      value={formData.address}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white outline-none transition-all text-slate-900"
+                      placeholder="123 Main St, Sacramento, CA"
+                    />
+                  </div>
+
+                  <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">Full Name</label>
                     <input
                       type="text"
@@ -340,19 +391,9 @@ export default function App() {
                       className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white outline-none transition-all text-slate-900"
                       placeholder="(916) 555-1234"
                     />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Property Address</label>
-                    <input
-                      type="text"
-                      name="address"
-                      required
-                      value={formData.address}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:bg-white outline-none transition-all text-slate-900"
-                      placeholder="123 Main St, Sacramento, CA"
-                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      We only use this to call/text your rent estimate. No spam.
+                    </p>
                   </div>
 
                   <button
