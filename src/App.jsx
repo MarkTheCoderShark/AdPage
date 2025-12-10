@@ -220,7 +220,7 @@ export default function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="px-6 py-12 md:py-20">
+      <section className="px-6 py-6 md:py-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Column - Content */}
