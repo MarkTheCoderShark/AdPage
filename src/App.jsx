@@ -581,6 +581,19 @@ export default function App() {
               }
             ]}
           />
+
+          {/* Desktop CTA after reviews */}
+          <div className="hidden md:flex justify-center mt-12">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer"
+            >
+              Get Your Free Rental Analysis
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -659,6 +672,19 @@ export default function App() {
                 <p className="text-slate-600 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
+          </div>
+
+          {/* Desktop CTA after FAQ */}
+          <div className="hidden md:flex justify-center mt-12">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg cursor-pointer"
+            >
+              Get Your Free Rental Analysis
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
