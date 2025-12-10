@@ -279,15 +279,17 @@ export default function App() {
             {/* Right Column - Form */}
             <div className="order-1 lg:order-2">
               {/* Mobile Trust Bar - Only visible on mobile, above form */}
-              <div className="lg:hidden mb-4 flex items-center justify-center gap-4 text-sm">
-                <div className="flex items-center gap-1">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
-                  </div>
-                  <span className="text-slate-700 font-medium">65+ Reviews</span>
+              <div className="lg:hidden mb-3 py-2 px-4 bg-slate-50 border border-slate-100 rounded-lg flex items-center justify-center gap-6 text-xs">
+                <div className="flex items-center gap-1.5">
+                  <svg className="w-3.5 h-3.5 text-amber-400 fill-amber-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                  <span className="text-slate-600 font-medium">4.9 Rating</span>
                 </div>
                 <span className="text-slate-300">·</span>
                 <span className="text-slate-600 font-medium">94% Occupancy</span>
+                <span className="text-slate-300">·</span>
+                <span className="text-slate-600 font-medium">2-3 Week Placement</span>
               </div>
 
               <div className="bg-white rounded-2xl p-8 shadow-xl shadow-stone-200/50 border border-stone-100">
