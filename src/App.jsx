@@ -215,7 +215,7 @@ export default function App() {
               </h1>
 
               <p className="text-xl text-slate-600 mb-4 leading-relaxed">
-                Finding reliable tenants is hard. Keeping them is harder. We handle the screening, the leasing, the rent collection, and the late-night emergencies — so your investment actually works for you.
+                We handle screening, leasing, rent collection, and midnight emergencies — you just collect the check.
               </p>
 
               <p className="text-lg text-emerald-700 font-medium mb-8">
